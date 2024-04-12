@@ -1,2 +1,3 @@
 # Ignore specific files ending in .ig (ignore)
 *.ig
+*.backup
