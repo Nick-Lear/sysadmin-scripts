@@ -54,7 +54,7 @@ done
 echo "Checking for required options..."
 if [ -z "$SOURCE" ] || [ -z "$DEST" ] || [ -z "$REMOTE" ]; then
 	echo "Command failed. Required inputs are not provided or are invalid."
-	usage
+	howto
 fi
 
 # Default SSH port
