@@ -14,8 +14,8 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Check if a username has been given
-if [ $# -ne 1]; then
-	usage
+if [ $# -ne 1 ]; then
+	howto
 fi
 
 # Store given username from argument
