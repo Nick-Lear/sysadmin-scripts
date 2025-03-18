@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to set a static IP to a specified network interface
+# Script to set a static IP to a specified network interface, restart the networking service, and confirm via stdout that the script has completed
 
 # Function to display how to / usage
 howto() {
@@ -16,7 +16,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Ensure user has provided the necessary arguments for the command to function
-
 if [ $# -ne 4 ];
 	howto
 fi
@@ -34,9 +33,9 @@ sudo cp /etc/network/interfaces /etc/network/interfaces.bak
 # Configure the interface as provided, display changes to the terminal
 echo "auto $INTERFACE" | sudo tee -a /etc/network/interfaces
 echo "iface $INTERFACE inet static" | sudo tee -a /etc/network/interfaces
-echo "	address $IP_ADDRESS" | sudo tee -a /etc/network/interfaces
-echo "	netmask $NETMASK" | sudo tee -a /etc/network/interfaces
-echo "	gateway $GATEWAY" | sudo tee -a /etc/network/interfaces
+echo "address $IP_ADDRESS" | sudo tee -a /etc/network/interfaces
+echo "netmask $NETMASK" | sudo tee -a /etc/network/interfaces
+echo "gateway $GATEWAY" | sudo tee -a /etc/network/interfaces
 
 # Restart the service
 sudo systemctl restart networking
