@@ -2,7 +2,7 @@
 
 TRACKING /etc CONFIGURATION WITH Git/etckeeper
 
-Installation
+---Installation---
 "sudo dnf install -y etckeeper git"
 installs etckeeper and git
 
@@ -13,12 +13,12 @@ initializes etckeeper
 syntax to make etckeeper initial commit
 
 
-Practice Making Changes
+---Practice Making Changes---
 "sudo hostnamectl set-hostname etcgit-practice"
 changed hostname to etcgit-practice
 
 
-Listing Changes
+---Listing Changes---
 "cd /etc
 sudo git status"
 change directory to /etc and list any changes to the directory
@@ -33,11 +33,22 @@ checks commit history
 checks differences exactly
 
 
-Restoring Changes
+---Restoring Changes---
 "sudo git checkout HEAD~1 /etc/hostname"
 restores hostname to time of initial commit
 
 "sudo systemctl restart systemd-hostnamed"
 restarts hostname service that was changed
+
+
+---Removal---
+"sudo rm -rf /etc/.git"
+"sudo dnf remove etckeeper"
+removes git changes and uninstalls etckeeper
+
+
+---Automation---
+"0 0 * * * root /usr/bin/etckeeper commit 'Daily commit'" (appended to /etc/crontab)
+runs a daily commit via etckeeper/crontab 
 
 
