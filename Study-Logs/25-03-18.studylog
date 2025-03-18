@@ -52,3 +52,24 @@ removes git changes and uninstalls etckeeper
 runs a daily commit via etckeeper/crontab 
 
 
+---Disaster Recovery---
+"git checkout config-backup@{yesterday}"
+restores all config files to yesterday's versions
+
+
+---Possible Real World Applications---
+version control of config files being used on the server(s)
+	- files like sshd_config, sudoers, passwd, skel, firewalld/iptables, dnf.conf, yum.repos.d/*, fstab, crontab make great candidates for this
+easier parity between config files on multiple servers
+disaster recovery with faster redeployments of servers using stored config files or change reversions
+
+
+---Helpful Features---
+etckeeper makes a commit before and immediately after the operations of a package manager
+
+i.e. "sudo dnf install nginx" etckeeper creates a pre-install commit: dnf install nginx, and when the installation is completed, etckeeper creates a post-install commit: dnf install nginx
+this allows for the exact changes being made to /etc to be documented, and can be easily reverted if needed to pre-install commit status
+
+"sudo git log --oneline"
+"sudo git diff HEAD^"
+Would display the changes made from pre-install to post-install
