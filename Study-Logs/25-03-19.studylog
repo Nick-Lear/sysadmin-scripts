@@ -1,0 +1,28 @@
+Created a management/core server on a VPS to manage a coming cloud-hosted homelab to learn/practice Ansible and more complicated networking cloud tasks. 
+
+Server has already had SSH hardened, root login disabled, new users created, dnf automatic installed, hostname set, timezone set, etc etc. 
+
+Git, vim, htop, ansible, and cockpit have all been installed. 
+"sudo dnf install epel-release"
+"sudo dnf install git vim htop ansible cockpit"
+
+Initial commit for etckeeper has been completed for version control of the /etc directory. 
+"sudo etckeeper commit -m "initial commit for etckeeper""
+
+Browser dashboard/GUI Cockpit has been installed. 
+Cockpit service/socket was started and made permanent on server firewall. 
+"sudo systemctl enable --now cockpit.socket"
+"sudo firewall-cmd --add-service=cockpit --permanent"
+"sudo firewall-cmd --reload"
+
+Config for VPS firewall updated to allow port 9090(TCP) from IPv4.
+
+I was able to login to the GUI via the web browser using server credentials :)
+[screenshot should be included in this repo for posterity] 
+
+Created etckeeper commit once cockpit was up, running, and accessible
+"sudo etckeeper commit -m "Cockpit is installed and accessible via browser"
+
+Created reference sheet for an ansible inventory file in the /home/admin/ansible/ directory.
+[screenshot should be included in this repo for future reference]
+
