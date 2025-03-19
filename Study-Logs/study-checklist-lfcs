@@ -46,6 +46,7 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 4. Find all files in `/etc` larger than 1MB:
 [find /etc -type f -size +1M]
 5. Use `rsync` to back up `/project-data` to `/backup/project-data`.
+[sudo touch /home/brian/project-data/testfile.txt (to have a file to verify a transfer took place) && sudo mkdir /backup (to create the desination) && sudo rsync -rav /home/brian/project-data /backup/ && sudo ls /backup]
 
 ---
 
