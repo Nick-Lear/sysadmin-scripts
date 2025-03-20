@@ -1,0 +1,13 @@
+Went to create a VPC on the cloud host I'm using, turns out that VPCs aren't available in the region that I was using. 
+
+Initiated a migration of the ansible control center node to another region that supports VPCs.
+
+Migration was successful, IP was updated in the .shh/config file, I am able to access the server via SSH.
+
+VPC created, ansible control node was assigned a private IP within the VPC subnet. 
+
+Created web-target-01 to host a basic web server that will be configured/maintaned via ansible control node. 
+
+SSH hardened, root login disabled, sudo account created, firewall configured, timezone set, updates installed.
+
+
