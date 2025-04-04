@@ -18,7 +18,7 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
    - Custom shell: `/bin/bash`
    - Expiry date: 30 days from today
    - Primary group: `staff`   
-   [sudo adduser brian/tina/sue -S /path/to/shell && sudo groupadd staff && sudo usermod -aG staff brian/tina/sue && sudo passwd -x 30 brian/tina/sue] 
+[sudo adduser brian/tina/sue -S /path/to/shell && sudo groupadd staff && sudo usermod -aG staff brian/tina/sue && sudo passwd -x 30 brian/tina/sue] 
 2. Create a group called `developers` and add `tina` and `sue` to it. 
 [sudo groupadd developers && sudo usermod -aG developers tina/sue]
 3. Lock `brian`'s account. 
@@ -26,6 +26,7 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 4. Set `tina`’s password to expire in 15 days and force password change on next login. 
 [sudo passwd -x 15 && sudo passwd -e]
 5. Check user info using `id`, `getent`, `lastlog`.
+[id brian && getent brian && lastlog brian]
 
 ---
 
@@ -59,10 +60,15 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 🛠 **Tasks:**
 1. Create a custom service called `hello-svc` that:
    - Runs a script that logs “Hello from systemd” to `/var/log/hello.log` every minute
+[]
 2. Enable and start `httpd` (Apache) and `firewalld` services
+[]
 3. Schedule a job to reboot the system at 3:00 AM tomorrow with `at`
+[]
 4. Use `cron` to run a disk usage script every Sunday at midnight
+[]
 5. Use `nice` and `renice` to prioritize a `sleep` process
+[]
 
 ---
 
@@ -79,11 +85,15 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
    Gateway: 192.168.1.1
    DNS: 8.8.8.8
    ```
+[]
 2. Change the hostname to `lfcs-node01` using `hostnamectl`
+[]
 3. Add `192.168.1.200 testbox.local` to `/etc/hosts`
+[]
 4. Disable SSH root login and change SSH port to `2222` in `/etc/ssh/sshd_config`
+[]
 5. Open ports for SSH, HTTP, and custom port `9000` in firewalld and make it permanent
-
+[]
 ---
 
 ## ✅ Week 5: Storage and LVM
@@ -93,14 +103,19 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 🛠 **Tasks:**
 1. Create a new partition `/dev/sdb1`, format it as `xfs`, and mount it at `/mnt/data`
+[]
 2. Add a line to `/etc/fstab` using UUID for `/mnt/data`
+[]
 3. Create LVM stack:
    - Physical volume on `/dev/sdc`
    - Volume group `datavg`
    - Logical volume `datalv` (2G)
    - Mount at `/mnt/lvmdata`
+[]
 4. Extend `datalv` by 1G and grow the XFS filesystem
+[]
 5. Try booting without mounting `/mnt/lvmdata` and recover with emergency mode
+[]
 
 ---
 
@@ -111,7 +126,9 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 🛠 **Tasks:**
 1. Use `dnf` to install: `vim`, `wget`, `git`, `httpd`, and `cockpit`
+[]
 2. Download and install `htop` from an `.rpm` file (from EPEL or RPMFind)
+[]
 3. Create a custom `.repo` file under `/etc/yum.repos.d/test.repo`:
    ```ini
    [test-repo]
@@ -120,8 +137,11 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
    enabled=1
    gpgcheck=0
    ```
+[]
 4. Enable the `php:8.0` AppStream module and install `php`
+[]
 5. List all enabled repos and query the package that provides `/usr/bin/python3`
+[]
 
 ---
 
@@ -136,16 +156,21 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
    ```bash
    journalctl -u sshd -n 100
    ```
+[]
 2. Change the default systemd target to multi-user:
    ```bash
    systemctl set-default multi-user.target
    ```
+[]
 3. Reboot and isolate graphical mode temporarily:
    ```bash
    systemctl isolate graphical.target
    ```
+[]
 4. Force an `fstab` failure and boot into rescue mode to fix it
+[]
 5. Create a `logrotate` config for `/var/log/hello.log` with weekly rotation and 4 backups
+[]
 
 ---
 
@@ -156,10 +181,16 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 🛠 **Mock Tasks (Timed):**
 1. Create users `test1`, `test2` with ACLs to access `/data`
+[]
 2. Write a service that pings `google.com` every 5 minutes
+[]
 3. Install a package from `.rpm` and confirm it runs
+[]
 4. Create LVM stack and mount it persistently
+[]
 5. Apply firewalld rules for ports `80`, `22`, `443`, and `9000`
+[]
 6. Troubleshoot a broken Apache service using logs and restart it
+[]
 
 ---
