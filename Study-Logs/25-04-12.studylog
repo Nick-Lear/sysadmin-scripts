@@ -1,0 +1,26 @@
+Spent a week or two re-organizing the VPC, proxy server, and the servers within. 
+
+Re-organized and re-configured all the relevant config files from "old" IPs to the "new" IPs, ensured that publicly accessible hosts are accessible again and all functionality therein is working as intended. 
+
+Structure looks something like this now:
+Internet >>>> Reverse Proxy Server's Firewall >>>> Reverse Proxy Server >>>> VPC Firewall >>>> VPC >>>> Ansible Control Node + Wikimedia Server
+
+
+Ran into an issue with outbound traffic for the internal hosts behind the reverse proxy, this was caused by the internal hosts' external IPs being removed in the Lindode control panel. Hosts without external IPs are unable to be NAT'd out to the general internet, even from within the VPC or from behind a proxy because of how Linode routes traffic. Outbound traffic from Linode's without an external IP gets dropped before it reaches the proxy. After adding the external IP's again, re-configured the firewalls on each host, proxy's firewall, and the VPC's firewall.
+INBOUND TRAFFIC
+Internet >>>> Proxy Firewall (ALLOWS: HTTP(S), SSH, Cockpit, DNS, DHCP) FROM: ANY >>>> VPC Firewall (ALLOWS: HTTP(S), SSH, Cockpit, DNS, DHCP) FROM: Proxy Server OR VPC Subnet Hosts ONLY >>>> Respective Internal Host
+
+OUTBOUND TRAFFIC
+ANY, as long as it originates from the VPC subnet. The public IP's exist so that NAT works, but are not usable.
+
+These changes allow the hosts in the VPC to be publicly accesible via the reverse proxy, without having any public IPs exposed to the internet. 
+
+
+Additionally, ran into an issue with icmp-block-inversion using Firewalld, which has been resolved and heavily muddied the waters while troubleshooting the above firewall issues. 
+Updated the wiki page for Firewalld to explain icmp-block-inversion in more detail. 
+
+
+Renamed the various non-root users and hosts' hostnames to more accurately reflect the hosts' services.
+Updated the Ansible playbooks and Inventory files to reflect these changes. 
+Updated the wiki page for Ansible to explain the various modules, arguments, and syntax used/learned while making these changes.
+
