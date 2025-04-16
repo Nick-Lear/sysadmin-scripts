@@ -60,13 +60,13 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 🛠 **Tasks:**
 1. Create a custom service called `hello-svc` that:
    - Runs a script that logs “Hello from systemd” to `/var/log/hello.log` every minute
-[Study-Logs/study-week-3/hello.sh && Study-Logs/study-week-3/hello.service]
+[Study-Logs/study-week-3/hello.sh && Study-Logs/study-week-3/hello.service && Study-Logs/study-week-3/hello.log]
 2. Enable and start `httpd` (Apache) and `firewalld` services
 [sudo systemd enable httpd && sudo systemctl start httpd && sudo systemctl enable firewalld && sudo systemctl start firewalld -- These are both running on VPC-Project servers, did not recreate manually again]
 3. Schedule a job to reboot the system at 3:00 AM tomorrow with `at`
 [sudo dnf install at && sudo systemctl start atd && sudo systemctl enable atd && echo "sudo reboot" | at 03:00 tomorrow ]
 4. Use `cron` to run a disk usage script every Sunday at midnight
-[]
+[Study-Logs/study-week-3/diskusage.sh && Study-Logs/study-week-3/diskusage.log && Study-Logs/study-week-3/crontab]
 5. Use `nice` and `renice` to prioritize a `sleep` process
 []
 
