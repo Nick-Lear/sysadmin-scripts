@@ -1,0 +1,13 @@
+[Unit]
+Description=Custom script for studying for the LFCS certification - Calls hello.sh from /usr/bin/hello.sh
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hello.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
