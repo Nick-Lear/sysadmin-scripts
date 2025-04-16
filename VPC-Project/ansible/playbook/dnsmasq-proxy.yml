@@ -1,0 +1,24 @@
+- name: Install and configure dnsmasq on the proxy server
+  hosts: proxy
+  become: true
+  tasks:
+    - name: Verify dnsmasq is installed
+      dnf:
+        name: dnsmasq
+        state: latest
+
+    - name: Edit /etc/dnsmasq.conf
+      ansible.builtin.blockinfile:
+        path: /etc/dnsmasq.conf
+        block: |
+          server=8.8.8.8
+          listen-address=127.0.0.1,10.0.0.3
+        create: yes
+
+    - name: Enable the dnsmasq service
+      ansible.builtin.command: systemctl enable dnsmasq
+      become: true
+
+    - name: Restart the dnsmasq service
+      ansible.builtin.command: systemctl restart dnsmasq
+      become: true

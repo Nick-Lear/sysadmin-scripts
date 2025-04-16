@@ -1,0 +1,32 @@
+#THIS IS AN EXAMPLE FILE
+[test] #Name of the 'host group', collection of hosts organized by these groups i.e. test01, test02, etc
+test01 ansible_host=IP ADDR HERE ansible_user=USERNAME ansible_port=PORT# #this is how you would format for multiple arguments/options
+
+#test01 = alias for the host
+#ansible_host=IP ADDR HERE specifies which IP address or hostname the ansible host is
+#ansible_user=USERNAME specifies which user should be used to login if not the current user
+#ansible_port=PORT# specifies which SSH port ansible should use if not 22
+
+#OTHER POSSIBLE ARGUMENTS/OPTIONS
+#ansible_ssh_private_key_file=/PATH/TO/FILE specifies which private key to use for authentication
+#ansible_become true    specifies to ansible to use sudo/root
+#ansible_become_user true    specifies to run commands as the current user, i.e. admin
+
+
+
+
+[web]
+web01 ansible_host=IP ADDR HERE
+web02 ansible_host=IP ADDR HERE ansible_port=PORT# #this is how you would format for multiple hosts in a single host group, that have different arguments/options
+
+
+
+
+[practice] #this is how you would format multiple hosts in a single host group, that have shared arguments/options so they need only be listed once
+practice01 ansible_host=IP ADDR HERE
+practice02 ansible_host=IP ADDR HERE
+
+[practice:vars]
+ansible_user=USER
+ansible_become=true
+ansible_port=PORT#

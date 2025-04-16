@@ -1,0 +1,8 @@
+- name: Proxy Rename to proxy from web-target-01
+  hosts: proxy
+  become: true
+  tasks:
+    - name: Set Hostname 'proxy'
+      hostname: 
+        name: proxy
+

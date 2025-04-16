@@ -1,0 +1,69 @@
+- name: Install and configure Nginx as a reverse proxy
+  hosts: proxy
+  become: true
+  tasks:
+    - name: Installs latest packages
+      dnf:
+        name: '*'
+        state: latest
+
+    - name: Installs nginx
+      dnf: 
+        name: nginx
+        state: latest
+
+    - name: Enable nginx service
+      ansible.builtin.command: systemctl enable nginx
+      become: true
+
+    - name: Start nginx service
+      ansible.builtin.command: systemctl start nginx
+      become: true
+
+    - name: Add contents to /etc/nginx/conf.d/reverse-proxy.conf
+      ansible.builtin.blockinfile:
+        path: /etc/nginx/conf.d/reverse-proxy.conf
+        block: |
+          server {
+              listen 9090; # listen for HTTP requests
+
+              server_name localhost; # domain name or IP
+
+              # Reverse proxy to lfcs-prep
+              location /lfcs-prep {
+                  proxy_pass http://10.0.0.2:9090;
+                  #proxy_set_header Host $host;
+                  #proxy_set_header X-Real-IP $remote_addr;
+                  #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  #proxy_set_header X-Forwarded-Proto $scheme;
+              }
+
+              #location /where/the/url/should/go {
+                  #proxy_pass http://INTERNAL_IP;
+                  #proxy_set_header Host $host;
+                  #proxy_set_header X-Real-IP $remote_addr;
+                  #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  #proxy_set_header X-Forwarded-Proto $scheme;
+               # }
+          }
+        create: yes
+
+    - name: Configure proxy firewall to accept HTTP/HTTPS
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+        zone: public
+      with_items:
+        - http
+        - https
+
+    - name: Configure firewall to allow port 9090
+      ansible.posix.firewalld:
+        port: 9090/tcp
+        permanent: true
+        state: enabled
+        zone: public
+
+    - name: Restart the firewall service
+      ansible.builtin.command: firewall-cmd --reload

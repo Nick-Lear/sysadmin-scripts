@@ -1,0 +1,48 @@
+- name: Install and configure Squid for outbound proxy for VPC clients
+  hosts: proxy
+  become: true
+
+  vars:
+    squid_http_port: 3128 #Default Squid port
+    allowed_network: "10.0.0.0/28" #VPC subnet range
+
+  tasks:
+    - name: Install Squid
+      dnf:
+        name: squid
+        state: latest
+
+    - name: Configure Squid to use port above
+      lineinfile:
+        path: /etc/squid/squid.conf
+        regexp: '^http_port' #Start of line with 'http_port'
+        line: "http_port {{ squid_http_port }}" #Replaces that line with this
+        state: present #Verifies this line is present at that location
+
+    - name: Configure Squid to allow VPC network traffic
+      lineinfile:
+        path: /etc/squid/squid.conf
+        regexp: '^acl local src'
+        line: "acl localnet src {{ allowed_network }}"
+        state: present
+
+    - name: Allow proxy access
+      lineinfile:
+        path: /etc/squid/squid.conf
+        regexp: '^http_access deny all' #Replaces this line with the one below to allow http traffic
+        line: "http_access allow localnet"
+        state: present
+
+    - name: Enable Squid
+      ansible.builtin.command: systemctl enable squid
+      become: true
+    
+    - name: Start Squid
+      ansible.builtin.command: systemctl start squid
+      become: true
+
+    - name: Ensure Squid did start and is running
+      service:
+        name: squid
+        state: started
+        enabled: yes

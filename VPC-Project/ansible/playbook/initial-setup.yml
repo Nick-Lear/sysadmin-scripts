@@ -1,0 +1,38 @@
+- name: Basic Setup
+  hosts: all
+  become: true
+  tasks:
+    - name: Set Hostname
+      hostname:
+        name: "{{ inventory_hostname  }}"
+    - name: Ensure epel-release repository is installed
+      dnf:
+        name: epel-release
+        state: present
+    - name: Ensure Vim is installed
+      dnf:
+        name: vim
+        state: present
+    - name: Ensure nano is installed
+      dnf:
+        name: nano
+        state: present
+    - name: Ensure BAT is installed
+      dnf:
+        name: bat
+        state: present
+    - name: Ensure TLDR is installed
+      dnf:
+        name: tldr
+        state: present
+    - name: Set alias in .bashrc for cat > bat
+      blockinfile:
+        path: "{{ rc }}"
+        block: "alias cat='bat --color=auto'"
+        insertafter: '^alias'
+    - name: Reboot if hostname changes
+      reboot:
+        msg: "Rebooting	after hostname change"
+        connect_timeout: 5
+        reboot_timeout:	300
+      when: ansible_hostname != inventory_hostname
