@@ -85,13 +85,13 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
    Gateway: 192.168.1.1
    DNS: 8.8.8.8
    ```
-[]
+[nmcli con mod eth0 ipv4.addresses 192.168.1.100/24 && nmcli con mod eth0 ipv4.gateway 192.168.1.1 && nmcli con mod eth0 ipv4.dns 8.8.8.8 && nmcli con mod eth0 ipv4.method manual && nmcli con up]
 2. Change the hostname to `lfcs-node01` using `hostnamectl`
-[]
+[sudo hostnamectl set-hostname "lfcs-node01"]
 3. Add `192.168.1.200 testbox.local` to `/etc/hosts`
-[]
+[echo "192.168.1.200 testbox.local" >> /etc/hosts]
 4. Disable SSH root login and change SSH port to `2222` in `/etc/ssh/sshd_config`
-[]
+[Study-Logs/study-week-4/sshd_config]
 5. Open ports for SSH, HTTP, and custom port `9000` in firewalld and make it permanent
 []
 ---
@@ -126,7 +126,7 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 🛠 **Tasks:**
 1. Use `dnf` to install: `vim`, `wget`, `git`, `httpd`, and `cockpit`
-[]
+[sudo dnf install vim wget git httpd cockpit -y]
 2. Download and install `htop` from an `.rpm` file (from EPEL or RPMFind)
 []
 3. Create a custom `.repo` file under `/etc/yum.repos.d/test.repo`:
@@ -141,7 +141,7 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 4. Enable the `php:8.0` AppStream module and install `php`
 []
 5. List all enabled repos and query the package that provides `/usr/bin/python3`
-[]
+[sudo dnf list --installed && ]
 
 ---
 
