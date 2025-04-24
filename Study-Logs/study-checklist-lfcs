@@ -9,10 +9,6 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 ## ✅ Week 1: System Architecture & User Management
 
-🎥 **Watch:**
-- [User Management (LearnLinuxTV)](https://youtu.be/YFb_6xhKJDo)
-- [Linux Permissions (The Linux Foundation)](https://youtu.be/jovwHHvqq4Y)
-
 🛠 **Tasks:**
 1. Create 3 users: `brian`, `tina`, and `sue`, each with:
    - Custom shell: `/bin/bash`
@@ -32,10 +28,6 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 ## ✅ Week 2: Permissions, ACLs, and File Management
 
-🎥 **Watch:**
-- [Permissions Deep Dive (LearnLinuxTV)](https://youtu.be/6EibP2l_BmY)
-- [ACLs Tutorial (Christian Lempa)](https://youtu.be/Nl3H_fN1gNc)
-
 🛠 **Tasks:**
 1. Create a directory `/project-data` owned by `brian`, group `developers`, permissions `2770`. 
 [sudo mkdir /home/brian/project-data && sudo chown brian:developers /home/brian/project-data && sudo chown 2770 /home/brian/project-data] 
@@ -52,10 +44,6 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 ---
 
 ## ✅ Week 3: Process & Service Management
-
-🎥 **Watch:**
-- [Systemd Services (Christian Lempa)](https://youtu.be/dHVh4l-3psg)
-- [Process Control (LearnLinuxTV)](https://youtu.be/MnIoJeJ-01I)
 
 🛠 **Tasks:**
 1. Create a custom service called `hello-svc` that:
@@ -74,10 +62,6 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 ## ✅ Week 4: Networking
 
-🎥 **Watch:**
-- [Linux Networking Basics](https://youtu.be/hh_LvtmTPfI)
-- [Firewalld Basics (Christian Lempa)](https://youtu.be/zLnN93zZsFg)
-
 🛠 **Tasks:**
 1. Set a static IP address using `nmcli`:
    ```
@@ -93,13 +77,12 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 4. Disable SSH root login and change SSH port to `2222` in `/etc/ssh/sshd_config`
 [Study-Logs/study-week-4/sshd_config]
 5. Open ports for SSH, HTTP, and custom port `9000` in firewalld and make it permanent
-[]
+[sudo firewall-cmd --zone=public --add-port=22/tcp --permanent OR sudo firewall-cmd --zone=public --add-service=ssh --permanent  
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent OR sudo firewall-cmd --zone=public --add-service=http --permanent
+sudo firewall-cmd --zone=public --add-port=9000/tcp --permanent]
 ---
 
 ## ✅ Week 5: Storage and LVM
-
-🎥 **Watch:**
-- [LVM Tutorial](https://youtu.be/L0sZ0UgfJ2A)
 
 🛠 **Tasks:**
 1. Create a new partition `/dev/sdb1`, format it as `xfs`, and mount it at `/mnt/data`
@@ -121,14 +104,11 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 ## ✅ Week 6: Package Management & Repos
 
-🎥 **Watch:**
-- [YUM/DNF Basics (LearnLinuxTV)](https://youtu.be/nkpSc9F7I5k)
-
 🛠 **Tasks:**
 1. Use `dnf` to install: `vim`, `wget`, `git`, `httpd`, and `cockpit`
 [sudo dnf install vim wget git httpd cockpit -y]
 2. Download and install `htop` from an `.rpm` file (from EPEL or RPMFind)
-[]
+[sudo dnf install [htop.rpm file]] 
 3. Create a custom `.repo` file under `/etc/yum.repos.d/test.repo`:
    ```ini
    [test-repo]
@@ -147,25 +127,12 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 
 ## ✅ Week 7: Logging, Boot, and Troubleshooting
 
-🎥 **Watch:**
-- [GRUB2 Boot Explained](https://youtu.be/yQ3C4vWJkG4)
-- [Journalctl Crash Course](https://youtu.be/BF9D1M2x7uE)
-
 🛠 **Tasks:**
 1. View last 100 lines of logs for `sshd`:
-   ```bash
-   journalctl -u sshd -n 100
-   ```
 []
 2. Change the default systemd target to multi-user:
-   ```bash
-   systemctl set-default multi-user.target
-   ```
 []
 3. Reboot and isolate graphical mode temporarily:
-   ```bash
-   systemctl isolate graphical.target
-   ```
 []
 4. Force an `fstab` failure and boot into rescue mode to fix it
 []
@@ -175,9 +142,6 @@ NOTE: This study plan was created with the assistance of Chat GPT, but the comma
 ---
 
 ## ✅ Week 8: Review + Mock Practice
-
-🎥 **Watch:**
-- [LFCS Exam Tips & Practice (LLTV)](https://youtu.be/vhbLfl5S9_U)
 
 🛠 **Mock Tasks (Timed):**
 1. Create users `test1`, `test2` with ACLs to access `/data`
