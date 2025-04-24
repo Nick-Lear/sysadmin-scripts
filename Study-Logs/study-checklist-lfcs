@@ -117,7 +117,15 @@ sudo firewall-cmd --zone=public --add-port=9000/tcp --permanent]
    enabled=1
    gpgcheck=0
    ```
-[]
+[sudo touch /etc/yum.repos.d/test.repo
+sudo nano /etc/yum.repos.d/test.repo
+
+[test-repo]
+name=Test Repo
+baseurl=http://thisisnotarealaddress.com/test/repo/
+enabled=1
+gpgcheck=0]
+
 4. Enable the `php:8.0` AppStream module and install `php`
 []
 5. List all enabled repos and query the package that provides `/usr/bin/python3`
@@ -129,13 +137,13 @@ sudo firewall-cmd --zone=public --add-port=9000/tcp --permanent]
 
 🛠 **Tasks:**
 1. View last 100 lines of logs for `sshd`:
-[]
+[sudo tail -n 100 /var/log/secure OR tail -n 100 OR sudo journalctl -u sshd -xe | tail -n 100]
 2. Change the default systemd target to multi-user:
-[]
+[Uncomfortable doing so in live environment for now, will need to investigate virtualization locally]
 3. Reboot and isolate graphical mode temporarily:
-[]
+[^]
 4. Force an `fstab` failure and boot into rescue mode to fix it
-[]
+[^]
 5. Create a `logrotate` config for `/var/log/hello.log` with weekly rotation and 4 backups
 []
 
