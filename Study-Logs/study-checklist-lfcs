@@ -129,7 +129,7 @@ gpgcheck=0]
 4. Enable the `php:8.0` AppStream module and install `php`
 []
 5. List all enabled repos and query the package that provides `/usr/bin/python3`
-[sudo dnf list --installed && ]
+[sudo dnf list --installed && sudo dnf provides /usr/bin/python3]
 
 ---
 
