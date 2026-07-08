@@ -1,0 +1,17 @@
+#This file should be located here: /etc/systemd/system/certbot-renewal.timer
+[Unit]
+Description=Run Certbot renewal periodically
+Documentation=https://certbot.eff.org/using.html#renewal
+
+[Timer]
+# Run daily at midnight
+OnCalendar=*-*-* 00:00:00
+# Also run 12 hours later
+OnCalendar=*-*-* 12:00:00
+# Randomize start time slightly
+RandomizedDelaySec=3600
+#Persist across reboots
+Persistent=true
+
+[Install]
+WantedBy=timers.target

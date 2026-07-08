@@ -1,0 +1,18 @@
+#This file should be located: /etc/systemd/system/certbot-renewal.service
+[Unit]
+Description=Certbot Certificate Renewal
+After=network.target
+Documentation=https://certbot.eff.org/docs/using.html#renewal
+
+[Service]
+Type=oneshot
+#Stops nginx service before runing
+ExecStartPre=/bin/systemctl stop nginx
+#Renews certificates using certbot
+ExecStart=/usr/bin/certbot renew --quiet --force-renewal
+#Restarts nginx when it's completed
+ExecStartPost=/bin/systemctl start nginx
+StandardOutput=journal
+StandardError=journal
+User=root
+Group=root
